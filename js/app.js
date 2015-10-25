@@ -100,7 +100,7 @@ Player.prototype.reset = function() {
     this.y = 50 + 3 * 83;
 };
 
-// handleInput method
+// handleInput method, using the allowed keys to move the player around
 Player.prototype.handleInput = function(allowedKeys) {
     /* 
     Moves player around within the confines of the game.
@@ -135,7 +135,7 @@ Scoreboard.prototype.render = function() {
 
 // Items are gems that appear randomly in the street. 
 // Both enemies and the player can get them.
-// They appear at random times, using the dt variable
+// They appear at random times, using the dt variable to count down
 var Item = function() {
     /* Use Math.random() to randomly generate X and Y values that are in any
      of the 'street' blocks. */
@@ -162,7 +162,7 @@ var Item = function() {
     this.wait = Math.floor(Math.random() * 15);
 };
 
-// update() makes the gem visible if the waiting time is up and checks for collisions.
+// update() makes the gem visible if the waiting time is up and then checks for collisions.
 Item.prototype.update = function(dt) {
     // The update function counts down the waiting time using dt.
     // Once the waiting time is up, the item becomes visible
@@ -189,6 +189,7 @@ Item.prototype.render = function() {
  * This can be an exact collision (x and y numbers are exactly equal), because players
  * and items only ever exist in the center of squares.
  * The score depends on the scarcity of the item: blue gets 100 points and orange 500.
+ * After awarding the points, the item is reset.
  */
 Item.prototype.collisionCheck = function() {
     if (this.y == player.y && this.x == player.x) {
